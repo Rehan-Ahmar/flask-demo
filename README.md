@@ -1,2 +1,2 @@
-# flask-demo
-Sample WebApp using Flask
+# Flask samples
+Sample WebApps using Flask
