@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <title>Regex Extractor</title>
+    </head>
+    <body>
+        <table border = 0>
+            <tr>
+                <td width="34%">Upload PDF and Execute: 
+                    <form action = "{{ url_for('upload_pdf_regex') }}" method = "POST" enctype = "multipart/form-data">
+                        <input type = "file" name = "input_pdf" />
+                        <input type = "submit"  value='Upload and Execute'/>
+                    </form>
+                </td>
+                <td width="33%">&nbsp;</td>
+                <td width="34%">Upload Rules' JSON:
+                    <form action = "{{ url_for('upload_json') }}" method = "POST" enctype = "multipart/form-data">
+                        <input type = "file" name = "config_json" />
+                        <input type = "submit"  value='Upload'/>
+                    </form>
+                </td>
+            </tr>
+        </table>
+        
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class=flashes>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        
+        {% if results is defined and results %}
+			<table border = 1 width = '75%' align='center'>
+			<tr> <th width=30%> Key </th> <th> Value </th> </tr>
+			{% for result in results %}
+				<tr> <td align="center"> {{ result['key'] }} </td> <td align="center"> {{ result['value'] }} </td> </tr>
+			{% endfor %}
+			</table>
+        {% endif %}
+    </body>
+</html>

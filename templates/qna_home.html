@@ -1,0 +1,48 @@
+<html>
+	<head>
+		<title>QnA Extractor</title>
+	</head>
+	<body>	
+		<table border = 0>
+			<tr>
+				<td width="34%">Upload PDF and Execute: 
+					<form action = "{{ url_for('upload_pdf_qna') }}" method = "POST" enctype = "multipart/form-data">
+						<input type = "file" name = "input_pdf" />
+						<input type = "submit"  value='Upload and Execute'/>
+					</form>
+				</td>
+				<td width="33%">&nbsp;</td>
+				<td width="34%">Upload Questions' Excel:
+					<form action = "{{ url_for('upload_excel') }}"  method = "POST" enctype = "multipart/form-data">
+						<input type = "file" name = "input_excel" />
+						<input type = "submit"  value='Upload'/>
+					</form>
+				</td>
+			</tr>
+		</table>
+		
+		{% with messages = get_flashed_messages() %}
+			{% if messages %}
+				<ul class=flashes>
+				{% for message in messages %}
+					<li>{{ message }}</li>
+				{% endfor %}
+				</ul>
+			{% endif %}
+		{% endwith %}
+		
+		<table border = 0 cellpadding="10">
+		{% if results is defined %}
+			{% for result in results %}
+					<tr><td>
+						<table border = 1>
+							<tr> <th width=150> Question No. </th> <td> {{ result['question_no'] }} </td> </tr>
+							<tr> <th width=150> Question </th> <td> {{ result['question'] }} </td> </tr>
+							<tr> <th width=150> Response </th> <td> {{ result['response'] }} </td> </tr>
+						</table>
+					</td><tr>
+			{% endfor %}
+		{% endif %}
+		</table>
+	</body>
+</html>
